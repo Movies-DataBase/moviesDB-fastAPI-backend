@@ -1,7 +1,7 @@
 fastapi==0.115.0
 uvicorn==0.30.6
 httpx==0.27.2
-pydantic==2.9.2
+pydantic==2.12.3
 python-dotenv==1.0.1
 # Use plain uvicorn instead of uvicorn[standard] to avoid the Python 3.14 build issue
 # while keeping the app runnable on Render and locally.
