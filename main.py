@@ -168,6 +168,7 @@ async def call_openrouter(model_id: str, system_prompt: str, user_prompt: str) -
             {"role": "user", "content": user_prompt},
         ],
         "temperature": 0.8,
+        "reasoning": {"enabled": False},  # disable reasoning to reduce token usage and cost
     }
 
     async with httpx.AsyncClient(timeout=60) as client:
@@ -227,7 +228,7 @@ async def list_free_models():
 async def recommend(req: RecommendRequest):
     model_id = 'nvidia/nemotron-3.5-lightning:free'
     # model_id = await get_best_free_model()
-    
+
     user_prompt = build_user_prompt(req)
 
     raw_output = await call_openrouter(model_id, SYSTEM_PROMPT, user_prompt)
