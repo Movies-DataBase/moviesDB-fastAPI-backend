@@ -111,6 +111,7 @@ async def get_best_free_model() -> str:
     # Rank by context length (bigger context = generally more capable / flexible)
     free_models.sort(key=lambda m: m.get("context_length", 0), reverse=True)
     best = free_models[0]["id"]
+    print(free_models)
 
     _model_cache["model_id"] = best
     _model_cache["fetched_at"] = now
@@ -224,7 +225,9 @@ async def list_free_models():
 
 @app.post("/recommend", response_model=RecommendResponse)
 async def recommend(req: RecommendRequest):
-    model_id = await get_best_free_model()
+    model_id = 'nvidia/nemotron-3.5-lightning:free'
+    # model_id = await get_best_free_model()
+    
     user_prompt = build_user_prompt(req)
 
     raw_output = await call_openrouter(model_id, SYSTEM_PROMPT, user_prompt)
