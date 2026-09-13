@@ -35,11 +35,24 @@ if not OPENROUTER_API_KEY:
 
 app = FastAPI(title="Movie Recommendation API", version="1.0.0")
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+    "http://localhost",
+    "http://localhost:4200",
+    "http://127.0.0.1",
+    "49.43.25.62",
+    "http://49.43.25.62",
+    "https://49.43.25.62",
+    "https://ymoviesdb.vercel.app",
+    "https://moviesdb.yasv.win",
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[origin.rstrip("/") for origin in CORS_ALLOWED_ORIGINS],
     allow_methods=["*"],
     allow_headers=["*"],
+    allow_credentials=True,
 )
 
 # ---------------------------------------------------------------------------
